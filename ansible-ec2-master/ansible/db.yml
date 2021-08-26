@@ -1,0 +1,25 @@
+﻿- name: Basic mysql provisioning example
+
+  vars_prompt:
+
+    - name: username
+      prompt: What is your username?
+      private: no
+
+    - name: password
+      prompt: What is your password?
+
+    - name: instance_name
+      prompt: What is your db instance_name?
+
+  community.aws.rds:
+    command: create
+    instance_name: {{ instance_name }}
+    db_engine: MySQL
+    size: 10
+    instance_type: db.m1.small
+    username: {{ username }}
+    password: {{ password }}
+    tags:
+      Environment: testing
+      Application: cms
